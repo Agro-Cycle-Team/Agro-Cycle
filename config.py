@@ -14,6 +14,12 @@ class Config:
     MYSQL_USER = 'root'
     MYSQL_PASSWORD = ''        # Add your MySQL password if any
     MYSQL_DB = 'agrocycle'
+    
+    MYSQL_HOST = 'localhost'
+    MYSQL_USER = 'root'
+    MYSQL_PASSWORD = 'shantanu_aher_patil_'        # Add your MySQL password if any
+    MYSQL_DB = 'agrocycle'
+
 
     # ==============================
     # 📂 FILE UPLOAD SETTINGS
