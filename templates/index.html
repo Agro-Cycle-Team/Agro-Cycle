@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Agrocycle - Sustainable Agriculture Platform</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", Arial, sans-serif;
+        }
+
+        body {
+            background-color: #e8dfcf;
+        }
+
+        /* ===== NAVBAR ===== */
+        .navbar {
+            background: linear-gradient(to right, #0f3d1e, #14532d);
+            color: white;
+            padding: 18px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar h2 {
+            font-size: 22px;
+        }
+
+        .btn-login {
+            padding: 8px 18px;
+            background-color: #f3eee4;
+            color: #14532d;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .btn-login:hover {
+            background-color: white;
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            text-align: center;
+            padding: 100px 20px;
+            background: linear-gradient(to right, #14532d, #1e7f4f);
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 42px;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            max-width: 700px;
+            margin: auto;
+        }
+
+        /* ===== FEATURES ===== */
+        .features {
+            padding: 60px 40px;
+        }
+
+        .features h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #0f3d1e;
+        }
+
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .feature-card {
+            background: #f3eee4;
+            padding: 30px;
+            border-radius: 14px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+        }
+
+        .feature-card h3 {
+            margin-bottom: 15px;
+            color: #14532d;
+        }
+
+        .feature-card p {
+            color: #444;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+
+        /* ===== CTA SECTION ===== */
+        .cta {
+            text-align: center;
+            padding: 70px 20px;
+            background: #14532d;
+            color: white;
+        }
+
+        .cta h2 {
+            margin-bottom: 20px;
+        }
+
+        .cta a {
+            padding: 12px 25px;
+            background: #f3eee4;
+            color: #14532d;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+        }
+
+        .cta a:hover {
+            background: white;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: #0f3d1e;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <h2>🌿 Agrocycle</h2>
+        <a href="/login" class="btn-login">Login</a>
+    </div>
+
+    <!-- Hero Section -->
+    <div class="hero">
+        <h1>Natural Fertilizer & Farm Waste Management</h1>
+        <p>
+            Agrocycle connects farmers, fertilizer companies, and administrators
+            to build a sustainable agricultural ecosystem.
+            Get fertilizer at 50% discount and convert farm waste into value.
+        </p>
+    </div>
+
+    <!-- Features Section -->
+    <div class="features">
+        <h2>Platform Features</h2>
+
+        <div class="card-container">
+
+            <div class="feature-card">
+                <h3>👨‍🌾 For Farmers</h3>
+                <p>
+                    Request natural fertilizer at discounted rates,
+                    add waste listings after harvest,
+                    and manage digital contracts securely.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <h3>🏭 For Companies</h3>
+                <p>
+                    View available waste listings,
+                    purchase farm waste,
+                    and manage fertilizer distribution efficiently.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <h3>👨‍💼 For Admin</h3>
+                <p>
+                    Approve fertilizer requests,
+                    monitor waste transactions,
+                    and generate system-wide reports.
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Call To Action -->
+    <div class="cta">
+        <h2>Start Managing Agriculture Smarter Today</h2>
+        <a href="/login">Get Started</a>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        © 2026 Agrocycle | Sustainable Agriculture Platform
+    </div>
+
+</body>
+</html>

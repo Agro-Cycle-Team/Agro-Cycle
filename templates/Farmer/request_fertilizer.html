@@ -1,0 +1,200 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<style>
+.page-title {
+    font-size: 26px;
+    margin-bottom: 25px;
+    color: #0f3d1e;
+}
+
+.form-card {
+    background: #f3eee4;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    margin-bottom: 40px;
+    max-width: 800px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #333;
+}
+
+input, select {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: #14532d;
+    box-shadow: 0 0 5px rgba(20,83,45,0.3);
+}
+
+.discount-box {
+    background: #d4edda;
+    color: #155724;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.btn-submit {
+    margin-top: 20px;
+    padding: 12px 25px;
+    background-color: #14532d;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.btn-submit:hover {
+    background-color: #0f3d1e;
+}
+
+/* Table Styling */
+.table-title {
+    font-size: 20px;
+    margin-bottom: 15px;
+    color: #0f3d1e;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #f3eee4;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+th, td {
+    padding: 14px;
+    text-align: left;
+}
+
+th {
+    background-color: #d6cfc0;
+    font-weight: 600;
+}
+
+tr:not(:last-child) {
+    border-bottom: 1px solid #ddd;
+}
+
+/* Status badges */
+.status-approved {
+    color: #155724;
+    background-color: #d4edda;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.status-pending {
+    color: #856404;
+    background-color: #fff3cd;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.status-rejected {
+    color: #721c24;
+    background-color: #f8d7da;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+}
+</style>
+
+<h2 class="page-title">Request Natural Fertilizer</h2>
+
+<div class="form-card">
+
+    <div class="discount-box">
+        🌿 Special Offer: Get Natural Fertilizer at 50% Discount
+    </div>
+
+    <form method="POST">
+
+        <div class="form-grid">
+
+            <div class="form-group">
+                <label>Crop Type *</label>
+                <input type="text" name="crop_type" required>
+            </div>
+
+            <div class="form-group">
+                <label>Quantity Required (kg) *</label>
+                <input type="number" name="quantity" required>
+            </div>
+
+            <div class="form-group">
+                <label>Expected Harvest Date *</label>
+                <input type="date" name="harvest_date" required>
+            </div>
+
+        </div>
+
+        <button type="submit" class="btn-submit">
+            Submit Request
+        </button>
+
+    </form>
+
+</div>
+
+<h3 class="table-title">Your Fertilizer Requests</h3>
+
+<table>
+    <tr>
+        <th>Crop</th>
+        <th>Quantity (kg)</th>
+        <th>Harvest Date</th>
+        <th>Status</th>
+        <th>Requested On</th>
+    </tr>
+
+    {% for request in requests %}
+    <tr>
+        <td>{{ request.crop_type }}</td>
+        <td>{{ request.quantity }}</td>
+        <td>{{ request.harvest_date }}</td>
+        <td>
+            {% if request.status == "Approved" %}
+                <span class="status-approved">Approved</span>
+            {% elif request.status == "Rejected" %}
+                <span class="status-rejected">Rejected</span>
+            {% else %}
+                <span class="status-pending">Pending</span>
+            {% endif %}
+        </td>
+        <td>{{ request.request_date }}</td>
+    </tr>
+    {% endfor %}
+
+</table>
+
+{% endblock %}

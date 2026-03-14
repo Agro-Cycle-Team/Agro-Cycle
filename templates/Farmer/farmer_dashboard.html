@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<style>
+.dashboard-box {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+.box {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+}
+.box h3 {
+    color: #1e90ff;
+}
+</style>
+
+<h2 style="color:#1e90ff;">Farmer Dashboard</h2>
+
+<div class="dashboard-box">
+    <div class="box">
+        <h3>Name</h3>
+        <p>{{ farmer.name }}</p>
+    </div>
+
+    <div class="box">
+        <h3>Crop Type</h3>
+        <p>{{ farmer.crop_type }}</p>
+    </div>
+
+    <div class="box">
+        <h3>Land Size</h3>
+        <p>{{ farmer.land_size }} Acres</p>
+    </div>
+
+    <div class="box">
+        <h3>Contract Status</h3>
+        <p>{{ farmer.contract_status }}</p>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,152 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<style>
+.page-title {
+    font-size: 26px;
+    margin-bottom: 30px;
+    color: #0f3d1e;
+}
+
+.table-container {
+    background: #f3eee4;
+    padding: 25px;
+    border-radius: 16px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 14px;
+    text-align: left;
+}
+
+th {
+    background-color: #d6cfc0;
+    font-weight: 600;
+}
+
+tr:not(:last-child) {
+    border-bottom: 1px solid #ddd;
+}
+
+/* Status badges */
+.status-approved {
+    color: #155724;
+    background-color: #d4edda;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.status-pending {
+    color: #856404;
+    background-color: #fff3cd;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.status-rejected {
+    color: #721c24;
+    background-color: #f8d7da;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+/* Buttons */
+.btn-approve {
+    background-color: #14532d;
+    color: white;
+    padding: 7px 14px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+.btn-approve:hover {
+    background-color: #0f3d1e;
+}
+
+.btn-reject {
+    background-color: #c82333;
+    color: white;
+    padding: 7px 14px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.btn-reject:hover {
+    background-color: #a71d2a;
+}
+
+.action-form {
+    display: inline;
+}
+</style>
+
+<h2 class="page-title">Manage Waste Listings</h2>
+
+<div class="table-container">
+
+    <table>
+        <tr>
+            <th>Farmer</th>
+            <th>Waste Type</th>
+            <th>Quantity (kg)</th>
+            <th>Description</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+
+        {% for waste in wastes %}
+        <tr>
+            <td>{{ waste.farmer_name }}</td>
+            <td>{{ waste.waste_type }}</td>
+            <td>{{ waste.quantity }}</td>
+            <td>{{ waste.description }}</td>
+            <td>{{ waste.date }}</td>
+            <td>
+                {% if waste.status == "Approved" %}
+                    <span class="status-approved">Approved</span>
+                {% elif waste.status == "Rejected" %}
+                    <span class="status-rejected">Rejected</span>
+                {% else %}
+                    <span class="status-pending">Pending</span>
+                {% endif %}
+            </td>
+
+            <td>
+                {% if waste.status == "Pending" %}
+                <form method="POST" action="/admin/update_waste" class="action-form">
+                    <input type="hidden" name="waste_id" value="{{ waste.id }}">
+                    <button type="submit" name="action" value="approve" class="btn-approve">
+                        Approve
+                    </button>
+                    <button type="submit" name="action" value="reject" class="btn-reject">
+                        Reject
+                    </button>
+                </form>
+                {% else %}
+                    —
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+
+    </table>
+
+</div>
+
+{% endblock %}

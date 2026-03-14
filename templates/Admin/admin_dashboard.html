@@ -1,0 +1,186 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<style>
+.page-title {
+    font-size: 26px;
+    margin-bottom: 30px;
+    color: #0f3d1e;
+}
+
+/* Stat Cards */
+.stats-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
+    margin-bottom: 40px;
+}
+
+.stat-card {
+    background: #f3eee4;
+    padding: 25px;
+    border-radius: 16px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+}
+
+.stat-card h3 {
+    font-size: 15px;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.stat-card h1 {
+    font-size: 32px;
+    color: #14532d;
+}
+
+/* Section Titles */
+.section-title {
+    font-size: 20px;
+    margin-bottom: 15px;
+    color: #0f3d1e;
+}
+
+/* Table Styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #f3eee4;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+th, td {
+    padding: 14px;
+    text-align: left;
+}
+
+th {
+    background-color: #d6cfc0;
+    font-weight: 600;
+}
+
+tr:not(:last-child) {
+    border-bottom: 1px solid #ddd;
+}
+
+/* Status Badges */
+.status-approved {
+    color: #155724;
+    background-color: #d4edda;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.status-pending {
+    color: #856404;
+    background-color: #fff3cd;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.status-rejected {
+    color: #721c24;
+    background-color: #f8d7da;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+}
+</style>
+
+<h2 class="page-title">Admin Dashboard</h2>
+
+<!-- Statistics Cards -->
+<div class="stats-container">
+
+    <div class="stat-card">
+        <h3>Total Farmers</h3>
+        <h1>{{ total_farmers }}</h1>
+    </div>
+
+    <div class="stat-card">
+        <h3>Total Companies</h3>
+        <h1>{{ total_companies }}</h1>
+    </div>
+
+    <div class="stat-card">
+        <h3>Fertilizer Requests</h3>
+        <h1>{{ total_requests }}</h1>
+    </div>
+
+    <div class="stat-card">
+        <h3>Waste Listings</h3>
+        <h1>{{ total_waste }}</h1>
+    </div>
+
+</div>
+
+<!-- Recent Fertilizer Requests -->
+<h3 class="section-title">Recent Fertilizer Requests</h3>
+
+<table>
+    <tr>
+        <th>Farmer Name</th>
+        <th>Crop</th>
+        <th>Quantity (kg)</th>
+        <th>Status</th>
+        <th>Date</th>
+    </tr>
+
+    {% for request in recent_requests %}
+    <tr>
+        <td>{{ request.farmer_name }}</td>
+        <td>{{ request.crop_type }}</td>
+        <td>{{ request.quantity }}</td>
+        <td>
+            {% if request.status == "Approved" %}
+                <span class="status-approved">Approved</span>
+            {% elif request.status == "Rejected" %}
+                <span class="status-rejected">Rejected</span>
+            {% else %}
+                <span class="status-pending">Pending</span>
+            {% endif %}
+        </td>
+        <td>{{ request.request_date }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<br><br>
+
+<!-- Recent Waste Listings -->
+<h3 class="section-title">Recent Waste Listings</h3>
+
+<table>
+    <tr>
+        <th>Farmer</th>
+        <th>Waste Type</th>
+        <th>Quantity (kg)</th>
+        <th>Status</th>
+        <th>Date</th>
+    </tr>
+
+    {% for waste in recent_waste %}
+    <tr>
+        <td>{{ waste.farmer_name }}</td>
+        <td>{{ waste.waste_type }}</td>
+        <td>{{ waste.quantity }}</td>
+        <td>
+            {% if waste.status == "Approved" %}
+                <span class="status-approved">Approved</span>
+            {% else %}
+                <span class="status-pending">Pending</span>
+            {% endif %}
+        </td>
+        <td>{{ waste.date }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}

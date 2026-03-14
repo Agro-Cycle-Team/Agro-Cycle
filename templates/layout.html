@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ title if title else "AgroCycle" }}</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", Arial, sans-serif;
+        }
+
+        body {
+            display: flex;
+            background-color: #e8dfcf; /* light beige background */
+        }
+
+        /* ===== SIDEBAR ===== */
+        .sidebar {
+            width: 240px;
+            height: 100vh;
+            background: linear-gradient(to bottom, #0f3d1e, #14532d);
+            color: white;
+            position: fixed;
+            padding: 20px;
+        }
+
+        .sidebar h2 {
+            margin-bottom: 40px;
+            font-size: 22px;
+            font-weight: 600;
+        }
+
+        .sidebar a {
+            display: block;
+            color: #d1fae5;
+            text-decoration: none;
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+
+        .sidebar a:hover {
+            background-color: #1e7f4f;
+            color: white;
+        }
+
+        .sidebar .active {
+            background-color: #1e7f4f;
+            color: white;
+        }
+
+        /* ===== MAIN CONTENT ===== */
+        .main {
+            margin-left: 240px;
+            width: calc(100% - 240px);
+        }
+
+        /* ===== TOP NAVBAR ===== */
+        .topbar {
+            height: 70px;
+            background: #f3eee4;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            padding: 0 30px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .logout-btn {
+            padding: 8px 15px;
+            background-color: #14532d;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+
+        .logout-btn:hover {
+            background-color: #0f3d1e;
+        }
+
+        /* ===== PAGE CONTENT ===== */
+        .content {
+            padding: 30px;
+        }
+
+        /* ===== DASHBOARD CARDS ===== */
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: #f3eee4;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .card h3 {
+            font-size: 16px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .card h1 {
+            font-size: 28px;
+            color: #0f3d1e;
+        }
+
+        /* ===== TABLE ===== */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #f3eee4;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        th, td {
+            padding: 14px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #d6cfc0;
+            font-weight: 600;
+        }
+
+        tr:not(:last-child) {
+            border-bottom: 1px solid #ddd;
+        }
+
+        /* ===== FORM ===== */
+        .form-box {
+            background: #f3eee4;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            max-width: 600px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+        }
+
+        .btn-primary {
+            padding: 10px 20px;
+            background-color: #14532d;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            background-color: #0f3d1e;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2>🌿 Agrocycle</h2>
+
+        {% if session.get('role') == 'farmer' %}
+            <a href="/farmer/dashboard">Dashboard</a>
+            <a href="/farmer/request">Request Fertilizer</a>
+            <a href="/farmer/add_waste">Add Waste</a>
+            <a href="/farmer/contract">Contracts</a>
+        {% elif session.get('role') == 'company' %}
+            <a href="/company/dashboard">Dashboard</a>
+            <a href="/company/view_waste">View Waste</a>
+            <a href="/company/purchase">Purchase History</a>
+        {% elif session.get('role') == 'admin' %}
+            <a href="/admin/dashboard">Dashboard</a>
+            <a href="/admin/approve">Approve Requests</a>
+            <a href="/admin/manage_waste">Manage Waste</a>
+            <a href="/admin/reports">Reports</a>
+        {% endif %}
+    </div>
+
+    <!-- Main Section -->
+    <div class="main">
+
+        <!-- Topbar -->
+        <div class="topbar">
+            <form action="/logout" method="get">
+                <button class="logout-btn">Log Out</button>
+            </form>
+        </div>
+
+        <!-- Dynamic Page Content -->
+        <div class="content">
+            {% block content %}
+            {% endblock %}
+        </div>
+
+    </div>
+
+</body>
+</html>

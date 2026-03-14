@@ -1,0 +1,148 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<style>
+.page-title {
+    font-size: 26px;
+    margin-bottom: 30px;
+    color: #0f3d1e;
+}
+
+/* Filter Section */
+.filter-box {
+    background: #f3eee4;
+    padding: 20px;
+    border-radius: 14px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    margin-bottom: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    align-items: center;
+}
+
+.filter-box input,
+.filter-box select {
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+.filter-box button {
+    padding: 8px 18px;
+    background-color: #14532d;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.filter-box button:hover {
+    background-color: #0f3d1e;
+}
+
+/* Table Styling */
+.table-container {
+    background: #f3eee4;
+    padding: 25px;
+    border-radius: 16px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 14px;
+    text-align: left;
+}
+
+th {
+    background-color: #d6cfc0;
+    font-weight: 600;
+}
+
+tr:not(:last-child) {
+    border-bottom: 1px solid #ddd;
+}
+
+/* Status Badge */
+.status-available {
+    color: #155724;
+    background-color: #d4edda;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.status-sold {
+    color: #721c24;
+    background-color: #f8d7da;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+}
+</style>
+
+<h2 class="page-title">View Available Waste</h2>
+
+<!-- Filter Section -->
+<form method="GET">
+    <div class="filter-box">
+
+        <input type="text" name="search" placeholder="Search by waste type...">
+
+        <select name="waste_type">
+            <option value="">All Types</option>
+            <option value="Organic">Organic</option>
+            <option value="Plastic">Plastic</option>
+            <option value="Metal">Metal</option>
+            <option value="Crop Residue">Crop Residue</option>
+        </select>
+
+        <button type="submit">Filter</button>
+
+    </div>
+</form>
+
+<!-- Waste Table -->
+<div class="table-container">
+
+    <table>
+        <tr>
+            <th>Farmer Name</th>
+            <th>Waste Type</th>
+            <th>Quantity (kg)</th>
+            <th>Price per kg (₹)</th>
+            <th>Total Value (₹)</th>
+            <th>Status</th>
+            <th>Date</th>
+        </tr>
+
+        {% for waste in wastes %}
+        <tr>
+            <td>{{ waste.farmer_name }}</td>
+            <td>{{ waste.waste_type }}</td>
+            <td>{{ waste.quantity }}</td>
+            <td>{{ waste.price }}</td>
+            <td>{{ waste.quantity * waste.price }}</td>
+            <td>
+                {% if waste.status == "Available" %}
+                    <span class="status-available">Available</span>
+                {% else %}
+                    <span class="status-sold">Sold</span>
+                {% endif %}
+            </td>
+            <td>{{ waste.date }}</td>
+        </tr>
+        {% endfor %}
+
+    </table>
+
+</div>
+
+{% endblock %}

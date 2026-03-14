@@ -1,0 +1,166 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<style>
+.page-title {
+    font-size: 26px;
+    margin-bottom: 25px;
+    color: #0f3d1e;
+}
+
+.form-wrapper {
+    background: #f3eee4;
+    padding: 30px;
+    border-radius: 14px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    margin-bottom: 40px;
+    max-width: 700px;
+}
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+label {
+    font-weight: 600;
+    display: block;
+    margin-bottom: 6px;
+    color: #333;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+
+textarea {
+    resize: none;
+}
+
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: #14532d;
+    box-shadow: 0 0 5px rgba(20,83,45,0.3);
+}
+
+.btn-submit {
+    padding: 10px 22px;
+    background-color: #1e7f4f;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-submit:hover {
+    background-color: #14532d;
+}
+
+.section-title {
+    font-size: 20px;
+    margin-bottom: 15px;
+    color: #0f3d1e;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #f3eee4;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+th, td {
+    padding: 14px;
+    text-align: left;
+}
+
+th {
+    background-color: #d6cfc0;
+    font-weight: 600;
+}
+
+tr:not(:last-child) {
+    border-bottom: 1px solid #ddd;
+}
+
+.status-approved {
+    color: green;
+    font-weight: 600;
+}
+
+.status-pending {
+    color: #c97a00;
+    font-weight: 600;
+}
+</style>
+
+<h2 class="page-title">Add New Waste Listing</h2>
+
+<div class="form-wrapper">
+    <form method="POST" enctype="multipart/form-data">
+
+        <div class="form-group">
+            <label>Waste Type *</label>
+            <select name="waste_type" required>
+                <option value="">Select Waste Type</option>
+                <option value="Organic">Organic</option>
+                <option value="Plastic">Plastic</option>
+                <option value="Metal">Metal</option>
+                <option value="Crop Residue">Crop Residue</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Quantity (kg) *</label>
+            <input type="number" name="quantity" placeholder="Enter quantity in kg" required>
+        </div>
+
+        <div class="form-group">
+            <label>Description</label>
+            <textarea name="description" rows="4" placeholder="Write details about waste..."></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>Upload Image</label>
+            <input type="file" name="image">
+        </div>
+
+        <button type="submit" class="btn-submit">Submit Listing</button>
+
+    </form>
+</div>
+
+<h3 class="section-title">Your Waste Listings</h3>
+
+<table>
+    <tr>
+        <th>Waste Type</th>
+        <th>Quantity (kg)</th>
+        <th>Status</th>
+        <th>Date</th>
+    </tr>
+
+    {% for waste in wastes %}
+    <tr>
+        <td>{{ waste.waste_type }}</td>
+        <td>{{ waste.quantity }}</td>
+        <td>
+            {% if waste.status == "Approved" %}
+                <span class="status-approved">Approved</span>
+            {% else %}
+                <span class="status-pending">Pending</span>
+            {% endif %}
+        </td>
+        <td>{{ waste.date }}</td>
+    </tr>
+    {% endfor %}
+
+</table>
+
+{% endblock %}
