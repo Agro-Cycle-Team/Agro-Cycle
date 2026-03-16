@@ -15,6 +15,8 @@ Track waste transactions and requests
 
 Promote sustainable farming practices
 
+![alt text](image.png)
+
 ⚙️ Technologies Used
 Backend
 
